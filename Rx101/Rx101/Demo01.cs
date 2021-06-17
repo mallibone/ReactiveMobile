@@ -1,36 +1,22 @@
 using System;
-using System.Reactive.Subjects;
+using Rx101.Helpers;
 
 namespace Rx101
 {
-    public class EventSample
+    public static class Demo01
     {
-        public event EventHandler<MeasurementUpdate> MeasurementChanged;
-
-        public void NewMeasruementReading(float measurement)
+        public static void SimpleComparison()
         {
-            var measurementUpdate = new MeasurementUpdate(measurement);
-            var measurementChanged = MeasurementChanged;
-            if (measurementChanged == null) return;
-            measurementChanged(this, measurementUpdate);
+            Console.WriteLine("Simple Event comparison");
+            var eventSample = new EventSample();
+            eventSample.MeasurementChanged += (_, update) => Console.WriteLine($"Temperature update {update.CurrentMeasurement}");
+
+            var observableSample = new ObservableSample();
+            observableSample.MeasurementChanged.Subscribe(update =>
+                Console.WriteLine($"Temperature update {update.CurrentMeasurement}"));
+            
+            eventSample.NewMeasruementReading(22.0f);
+            observableSample.NewMeasurementReading(24.0f);
         }
-    }
-
-    public class ObservableSample
-    {
-        private readonly Subject<MeasurementUpdate> _measurementUpdateSubject = new();
-        public IObservable<MeasurementUpdate> MeasurementChanged => _measurementUpdateSubject;
-
-        public void NewMeasurementReading(float temperature) =>
-            _measurementUpdateSubject.OnNext(new MeasurementUpdate(temperature));
-    }
-
-    public class MeasurementUpdate
-    {
-        public MeasurementUpdate(float currentMeasurement)
-        {
-            CurrentMeasurement = currentMeasurement;
-        }
-        public float CurrentMeasurement { get; }
     }
 }
