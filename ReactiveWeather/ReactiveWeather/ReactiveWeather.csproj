@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,5 +24,14 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Postleitzahlen-Schweiz.json" />
+    <EmbeddedResource Include="Assets\SwissPostalcodes.json" />
   </ItemGroup>
 </Project>
