@@ -26,7 +26,7 @@ namespace ReactiveWeather.ViewModels
         {
             return
                 _weatherService
-                    .GetSevenDayForecast(Searchentry)
+                    .GetSevenDayForecast(SearchEntry)
                     .Do(AddToLocations)
                     .SelectMany(forecast => Observable.StartAsync(() => NavigateToForecast(forecast)));
         }
@@ -38,7 +38,15 @@ namespace ReactiveWeather.ViewModels
         }
 
 
-        [Reactive] public int Searchentry { get; set; }
+        // private int _searchEntry;
+        // public int SearchEntry
+        // {
+        //     get => _searchEntry; 
+        //     set => this.RaiseAndSetIfChanged(ref _searchEntry, value);
+        // }
+
+        // identical to the written out above - generated at compile time
+        [Reactive] public int SearchEntry { get; set; }
         public Func<SevenDayForecast, Task> NavigateToForecast { get; set; } = forecast => Task.CompletedTask;
 
         public ICommand ExecuteSearch { get; }

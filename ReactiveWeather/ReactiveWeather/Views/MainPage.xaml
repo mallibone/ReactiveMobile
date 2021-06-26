@@ -11,7 +11,7 @@
         <!-- Search Area -->
         <Grid ColumnDefinitions="*,Auto">
             <Entry Placeholder="Enter Postalcode" 
-                   Text="{Binding Searchentry}" 
+                   Text="{Binding SearchEntry}" 
                    Keyboard="Numeric"
                    ClearButtonVisibility="WhileEditing"/>
             <Button Text="Search" 
