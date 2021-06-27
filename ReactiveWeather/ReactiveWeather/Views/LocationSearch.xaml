@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReactiveWeather.Views.LocationSearch">
+    <ContentView.Content>
+        <Grid RowDefinitions="Auto,*"
+              Margin="32,32">
+            <!-- Search Area -->
+            <Grid ColumnDefinitions="*,Auto">
+                <SearchBar x:Name="searchBar"
+                           Placeholder="Enter Postalcode or City"
+                           Text="{Binding SearchEntry}"
+                           SearchCommand="{Binding ExecuteSearch}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                <ActivityIndicator IsEnabled="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   Grid.Column="1"/>
+            </Grid>
+            <!-- List of Locations -->
+            <CollectionView ItemsSource="{Binding Locations}"
+                            Grid.Row="1"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

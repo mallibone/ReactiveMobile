@@ -3,22 +3,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
-             x:DataType="viewModels:WeatherPortalViewModel"
-             x:Class="ReactiveWeather.Views.MainPage">
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:views="clr-namespace:ReactiveWeather.Views;assembly=ReactiveWeather"
 
-    <Grid RowDefinitions="120,*,Auto"
-          Margin="32,16">
-        <!-- Search Area -->
-        <Grid ColumnDefinitions="*,Auto">
-            <Entry Placeholder="Enter Postalcode" 
-                   Text="{Binding SearchEntry}" 
-                   Keyboard="Numeric"
-                   ClearButtonVisibility="WhileEditing"/>
-            <Button Text="Search" 
-                    Command="{Binding ExecuteSearch}"/>
-        </Grid>
-        <!-- List of Locations -->
-        <ListView ItemsSource="{Binding Locations}"></ListView>
-    </Grid>
+             x:Class="ReactiveWeather.Views.MainPage"
+             IsBusy="{Binding IsBusy}"
+             Title="Search Locality">
+
+    <xct:TabView
+        TabStripPlacement="Bottom"
+        SelectedIndex="0"
+        TabStripHeight="60"
+        TabIndicatorColor="Blue">
+
+        <xct:TabViewItem
+            Text="Time"
+            x:DataType="viewModels:TimeViewModel"
+            FontSize="12">
+            <views:TimeView />
+        </xct:TabViewItem>
+        <xct:TabViewItem
+            Text="Search"
+            x:DataType="viewModels:LocationSearchViewModel"
+            FontSize="12">
+            <views:LocationSearch />
+        </xct:TabViewItem>
+    </xct:TabView>
 
 </ContentPage>

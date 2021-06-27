@@ -1,10 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveWeather.Models;
@@ -12,31 +10,49 @@ using ReactiveWeather.Services;
 
 namespace ReactiveWeather.ViewModels
 {
-    public class WeatherPortalViewModel : ReactiveObject
+    public class LocationSearchViewModel : ReactiveObject
     {
         private readonly WeatherService _weatherService;
+        private readonly LocalityService _locatityService;
 
-        public WeatherPortalViewModel()
+        public LocationSearchViewModel()
         {
             _weatherService = new WeatherService();
-            ExecuteSearch = ReactiveCommand.CreateFromObservable(Search);
+            _locatityService = new LocalityService();
+            ExecuteSearch =
+                ReactiveCommand.CreateFromObservable<string, IEnumerable<LocationViewItem>>(searchEntry => Search(searchEntry));
+            ExecuteSearch.ThrownExceptions.Subscribe(ex => HandleException(ex));
+
+            this.WhenAnyValue(vm => vm.SearchEntry)
+                .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
+                .Select(query => query?.Trim())
+                // .Do(query =>
+                // {
+                //     if (string.IsNullOrWhiteSpace(query)) IsBusy = false;
+                // })
+                .Where(query => query != null)
+                .DistinctUntilChanged()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Select(query => ExecuteSearch.Execute(query))
+                .Switch()
+                .Subscribe();
         }
 
-        private IObservable<Unit> Search()
+        private IObservable<IEnumerable<LocationViewItem>> Search(string searchEntry)
         {
+            IsBusy = true;
             return
-                _weatherService
-                    .GetSevenDayForecast(SearchEntry)
-                    .Do(AddToLocations)
-                    .SelectMany(forecast => Observable.StartAsync(() => NavigateToForecast(forecast)));
+                    _locatityService.SearchLocalities(searchEntry)
+                    .Where(localities => localities != null)
+                    .Select(localities =>
+                        localities.Select(l => new LocationViewItem {City = l.City, Postalcode = l.Postalcode})
+                            .ToList())
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Do(l => Locations = l)
+                    .Do(_ => IsBusy = false);
         }
 
-        private void AddToLocations(SevenDayForecast forecast)
-        {
-            if (Locations.Any(l => l.City == forecast.CityName)) return;
-            Locations.Add(new Location{City = forecast.CityName, LocationId = forecast.LocationId});
-        }
-
+        [Reactive] public bool IsBusy { get; set; }
 
         // private int _searchEntry;
         // public int SearchEntry
@@ -46,18 +62,19 @@ namespace ReactiveWeather.ViewModels
         // }
 
         // identical to the written out above - generated at compile time
-        [Reactive] public int SearchEntry { get; set; }
+        [Reactive] public string SearchEntry { get; set; }
         public Func<SevenDayForecast, Task> NavigateToForecast { get; set; } = forecast => Task.CompletedTask;
 
-        public ICommand ExecuteSearch { get; }
+        // public ICommand ExecuteSearch { get; }
+        public ReactiveCommand<string,IEnumerable<LocationViewItem>> ExecuteSearch { get; }
 
-        public IObservableCollection<Location> Locations { get; set; } = new ObservableCollectionExtended<Location>();
-    }
+        [Reactive]
+        public IEnumerable<LocationViewItem> Locations { get; set; } 
+            // = new();
 
-    public class Location
-    {
-        public string City { get; set; }
-        public string LocationId { get; set; }
-        public int Postalcode { get; set; }
+        private void HandleException(Exception exception)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

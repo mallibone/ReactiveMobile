@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -17,18 +18,21 @@ namespace ReactiveWeather.Services
 
         public IObservable<IEnumerable<Locality>> SearchLocalities(string searchQuery) =>
             Observable
-                .StartAsync(() => Filter(searchQuery), RxApp.TaskpoolScheduler)
+                .StartAsync((tcl) => Filter(searchQuery, tcl), RxApp.TaskpoolScheduler)
                 .ObserveOn(RxApp.MainThreadScheduler);
 
-        private static int counter = 0;
-        private async Task<IEnumerable<Locality>> Filter(string searchQuery)
+        private async Task<IEnumerable<Locality>> Filter(string searchQuery, CancellationToken tcl)
         {
             if (_localities.Any() == false) _localities = await LoadPostalcodes();
             
             // Adds a random break on every odd search request
-            // if (counter % 2 == 1) await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(0.5), tcl);
 
-            return _localities.Where(l => l.City.StartsWith(searchQuery) || l.Postalcode.ToString().StartsWith(searchQuery));
+            return string.IsNullOrEmpty(searchQuery)
+                ? new List<Locality>()
+                : _localities.Where(l =>
+                    l.City.StartsWith(searchQuery, StringComparison.InvariantCultureIgnoreCase)
+                    || l.Postalcode.ToString().StartsWith(searchQuery));
         }
         
         private async Task<List<Locality>> LoadPostalcodes()
