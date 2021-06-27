@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace ReactiveWeather.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LocationSearch : ContentView
+    public partial class LocationSearchView : ContentView
     {
-        public LocationSearch()
+        public LocationSearchView()
         {
             InitializeComponent();
             var viewModel = new LocationSearchViewModel();

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
+             x:DataType="vm:ErrorHandlingViewModel"
+             x:Class="ReactiveWeather.Views.ErrorHandlingView">
+    <ContentView.Content>
+        <Grid RowDefinitions="Auto,*">
+            <Frame BackgroundColor="LightPink" 
+                   IsVisible="{Binding HasError}" 
+                   HeightRequest="90">
+                <StackLayout>
+                    <Label Text="{Binding ErrorText}" 
+                           MaxLines="3"
+                           LineBreakMode="MiddleTruncation"
+                           TextColor="DarkRed" />
+                    <Button Text="Dismiss" 
+                            Command="{Binding ExecuteReset}"
+                            TextColor="DarkRed"/>
+                </StackLayout>
+            </Frame>
+            <StackLayout Grid.Row="1">
+                <Button Text="Error Text" 
+                        Command="{Binding ExecuteErrorRequest}"/>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
