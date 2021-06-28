@@ -2,6 +2,8 @@
 
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
+             x:DataType="vm:LocationSearchViewModel"
              x:Class="ReactiveWeather.Views.LocationSearchView">
     <ContentView.Content>
         <Grid RowDefinitions="Auto,*"
@@ -20,6 +22,8 @@
             </Grid>
             <!-- List of Locations -->
             <CollectionView ItemsSource="{Binding Locations}"
+                            SelectedItem="{Binding SelectedLocation}"
+                            SelectionMode="Single"
                             Grid.Row="1"/>
         </Grid>
     </ContentView.Content>

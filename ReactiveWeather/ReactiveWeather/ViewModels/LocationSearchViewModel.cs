@@ -26,16 +26,17 @@ namespace ReactiveWeather.ViewModels
             this.WhenAnyValue(vm => vm.SearchEntry)
                 .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
                 .Select(query => query?.Trim())
-                // .Do(query =>
-                // {
-                //     if (string.IsNullOrWhiteSpace(query)) IsBusy = false;
-                // })
                 .Where(query => query != null)
                 .DistinctUntilChanged()
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Select(query => ExecuteSearch.Execute(query))
                 .Switch()
                 .Subscribe();
+
+            this.WhenAnyValue(vm => vm.SelectedLocation)
+                .Where(sl => sl != null)
+                .Do(_ => SelectedLocation = null)
+                .Subscribe(sl => NavigateToForecast(sl));
         }
 
         private IObservable<IEnumerable<LocationViewItem>> Search(string searchEntry)
@@ -63,14 +64,14 @@ namespace ReactiveWeather.ViewModels
 
         // identical to the written out above - generated at compile time
         [Reactive] public string SearchEntry { get; set; }
-        public Func<SevenDayForecast, Task> NavigateToForecast { get; set; } = forecast => Task.CompletedTask;
+        public Func<LocationViewItem, Task> NavigateToForecast { get; set; } = location => Task.CompletedTask;
 
         // public ICommand ExecuteSearch { get; }
         public ReactiveCommand<string,IEnumerable<LocationViewItem>> ExecuteSearch { get; }
 
-        [Reactive]
-        public IEnumerable<LocationViewItem> Locations { get; set; } 
-            // = new();
+        [Reactive] public IEnumerable<LocationViewItem> Locations { get; set; }
+
+        [Reactive] public LocationViewItem SelectedLocation { get; set; }
 
         private void HandleException(Exception exception)
         {

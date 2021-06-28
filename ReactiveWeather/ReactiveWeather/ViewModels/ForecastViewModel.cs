@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using ReactiveWeather.Services;
@@ -11,17 +12,19 @@ using Exception = System.Exception;
 
 namespace ReactiveWeather.Views
 {
-    public class WeatherForecastViewModel : ReactiveObject
+    public class ForecastViewModel : ReactiveObject
     {
-        private readonly LocationViewItem _location;
         private readonly WeatherService _weatherService;
 
-        public WeatherForecastViewModel(LocationViewItem location)
+        public ForecastViewModel(LocationViewItem location)
         {
-            _location = location;
+            Location = location;
             _weatherService = new WeatherService();
+            UpdateWeather();
+            ExecuteUpdate = ReactiveCommand.Create(UpdateWeather);
         }
 
+        public LocationViewItem Location { get; }
         [Reactive] public bool IsBusy { get; set; }
 
         [Reactive] public string CityName { get; set; }
@@ -29,6 +32,8 @@ namespace ReactiveWeather.Views
         [Reactive] public int Windspeed { get; set; }
         [Reactive] public float Temperature { get; set; }
         [Reactive] public DateTime Date { get; set; }
+
+        public ICommand ExecuteUpdate { get; set; }
 
         private void UpdateValues(WeatherForecast forecast)
         {
@@ -41,7 +46,7 @@ namespace ReactiveWeather.Views
         private void UpdateWeather()
         {
             IsBusy = true;
-            _weatherService.GetWeatherForecast(_location.Postalcode)
+            _weatherService.GetWeatherForecast(Location.Postalcode)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(
                     UpdateValues, 

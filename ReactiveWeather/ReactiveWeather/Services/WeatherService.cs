@@ -1,12 +1,7 @@
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Reactive.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using ReactiveWeather.Models;
-using Splat;
 using WebApplication;
 
 namespace ReactiveWeather.Services

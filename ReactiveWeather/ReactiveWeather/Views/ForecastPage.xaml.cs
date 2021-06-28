@@ -5,12 +5,12 @@ using Xamarin.Forms.Xaml;
 namespace ReactiveWeather.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ForecastPage : ReactiveContentPage<WeatherForecastViewModel>
+    public partial class ForecastPage : ReactiveContentPage<ForecastViewModel>
     {
         public ForecastPage(LocationViewItem location)
         {
             InitializeComponent();
-            ViewModel = new WeatherForecastViewModel(location);
+            ViewModel = new ForecastViewModel(location);
             BindingContext = ViewModel;
         }
     }
