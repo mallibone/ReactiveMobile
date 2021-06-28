@@ -15,8 +15,10 @@ namespace ReactiveWeather.Views
         public LocationSearchView()
         {
             InitializeComponent();
-            var viewModel = new LocationSearchViewModel();
+            var viewModel = new LocationSearchViewModel {NavigateToForecast = NavigateToForecast};
             BindingContext = viewModel;
         }
+
+        private Task NavigateToForecast(LocationViewItem location) => Navigation.PushAsync(new ForecastPage(location));
     }
 }
