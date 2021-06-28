@@ -1,22 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ReactiveWeather.Models;
-using Xamarin.Forms;
+using ReactiveUI.XamForms;
+using ReactiveWeather.ViewModels;
 using Xamarin.Forms.Xaml;
 
 namespace ReactiveWeather.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ForecastPage : ContentPage
+    public partial class ForecastPage : ReactiveContentPage<WeatherForecastViewModel>
     {
-        public ForecastPage(SevenDayForecast forecast)
+        public ForecastPage(LocationViewItem location)
         {
             InitializeComponent();
-            var viewModel = new WeatherForecastViewModel(forecast);
-            BindingContext = viewModel;
+            ViewModel = new WeatherForecastViewModel(location);
+            BindingContext = ViewModel;
         }
     }
 }

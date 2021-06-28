@@ -1,8 +1,11 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ReactiveWeather.Views.ForecastPage">
+<rx:ReactiveContentPage x:TypeArguments="vm:WeatherForecastViewModel" 
+                              xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:rx="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              xmlns:vm="clr-namespace:ReactiveWeather.Views;assembly=ReactiveWeather"
+                              x:Class="ReactiveWeather.Views.ForecastPage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Hello, world!"
@@ -10,4 +13,4 @@
                    HorizontalOptions="CenterAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</rx:ReactiveContentPage>
