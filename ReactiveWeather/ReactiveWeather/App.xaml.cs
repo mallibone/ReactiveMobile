@@ -10,6 +10,7 @@ namespace ReactiveWeather
         public App()
         {
             InitializeComponent();
+            Akavache.Registrations.Start("ReactiveWeather");
 
             MainPage = new NavigationPage(new MainPage());
         }

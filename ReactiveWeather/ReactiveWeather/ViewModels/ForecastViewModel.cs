@@ -46,7 +46,8 @@ namespace ReactiveWeather.Views
         private void UpdateWeather()
         {
             IsBusy = true;
-            _weatherService.GetWeatherForecast(Location.Postalcode)
+            // _weatherService.GetWeatherForecast(Location.Postalcode)
+            _weatherService.GetWeatherForecastCache(Location.Postalcode)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(
                     UpdateValues, 
