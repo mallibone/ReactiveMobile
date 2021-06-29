@@ -8,27 +8,38 @@ namespace Rx101
 {
     public static class Demo02
     {
+        private const float temperatureThreshhold = 23.0f;
         public static void FilterEventFlows()
         {
             Console.WriteLine("Simple Event comparison");
+            // Setup
             var sampleData = new List<float> {12.5f, 43.2f, 22.3f, 21, 24, 27.8f, 21.3f, 33.2f};
-            const float maxTemperature = 23.0f;
+            // Event
             var eventSample = new EventSample();
-            eventSample.MeasurementChanged += (_, update) =>
-            {
-                if (update.CurrentMeasurement > maxTemperature) HandleTemperatureUpdate(update);
-            };
+            eventSample.MeasurementChanged += OnEventSampleOnMeasurementChanged;
 
+            // Observable
             var observableSample = new ObservableSample();
-            observableSample
+            var subscription = observableSample
                 .MeasurementChanged
-                .Where(update => update.CurrentMeasurement > maxTemperature)
+                .Where(update => update.CurrentMeasurement > temperatureThreshhold)
                 .Subscribe(HandleTemperatureUpdate);
+            
+            // Send measurements
             foreach (var dataPoint in sampleData)
             {
                 eventSample.NewMeasruementReading(dataPoint);
                 observableSample.NewMeasurementReading(dataPoint);
             }
+            
+            // Cleanup
+            // subscription.Dispose();
+            eventSample.MeasurementChanged -= OnEventSampleOnMeasurementChanged;
+        }
+
+        private static void OnEventSampleOnMeasurementChanged(object _, MeasurementUpdate update)
+        {
+            if (update.CurrentMeasurement > temperatureThreshhold) HandleTemperatureUpdate(update);
         }
 
         private static void HandleTemperatureUpdate(MeasurementUpdate update) =>
