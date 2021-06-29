@@ -10,11 +10,15 @@ namespace Rx101
             // Demo02.FilterEventFlows();
             // Demo03.MergeFlows();
             // Demo04.SimulateAsyncCalls();
+            // Demo05();
+        }
+
+        private static void Demo05()
+        {
             var demo05 = new Demo05();
             Console.ReadLine();
             demo05.Dispose();
         }
-
 
 
     }

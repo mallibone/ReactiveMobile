@@ -1,4 +1,4 @@
-namespace Rx101.Helpers
+namespace Rx101.Helpers.Models
 {
     public class MeasurementUpdate
     {

@@ -1,4 +1,5 @@
 using System;
+using Rx101.Helpers.Models;
 
 namespace Rx101.Helpers
 {

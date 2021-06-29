@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using Rx101.Helpers;
+using Rx101.Helpers.Models;
 
 namespace Rx101
 {
