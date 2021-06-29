@@ -10,14 +10,12 @@ namespace ReactiveWeather.Services
     public class WeatherService
     {
         private readonly HttpClient _httpClient;
-        // private const string BackendUrl = "https://asdf/{0}";
         private const string BackendUrl = "https://dwxweatherforecast.azurewebsites.net/api/weatherforecast/forpostalcode/{0}";
 
         public WeatherService()
         {
             _httpClient = new HttpClient();
         }
-        // public IObservable<SevenDayForecast> GetSevenDayForecast(int postalCode) => Observable.Return(JsonConvert.DeserializeObject<WeekForecastRoot>(DummyData)?.Data);
 
         public IObservable<WeatherForecast> GetWeatherForecast(int postalCode)
         {
