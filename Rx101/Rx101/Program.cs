@@ -11,6 +11,7 @@ namespace Rx101
             // Demo03.MergeFlows();
             // Demo04.SimulateAsyncCalls();
             // Demo05();
+            Console.ReadLine();
         }
 
         private static void Demo05()

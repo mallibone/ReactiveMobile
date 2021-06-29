@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rx101", "Rx101\Rx101.csproj", "{48EDDEE9-5F3F-445C-86B0-720EEDE354A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rx101.Test", "Rx101.Test\Rx101.Test.csproj", "{986B710D-BE85-48C1-8397-EB77B7DED23E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{48EDDEE9-5F3F-445C-86B0-720EEDE354A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48EDDEE9-5F3F-445C-86B0-720EEDE354A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48EDDEE9-5F3F-445C-86B0-720EEDE354A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{986B710D-BE85-48C1-8397-EB77B7DED23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{986B710D-BE85-48C1-8397-EB77B7DED23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{986B710D-BE85-48C1-8397-EB77B7DED23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{986B710D-BE85-48C1-8397-EB77B7DED23E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

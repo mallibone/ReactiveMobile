@@ -11,7 +11,7 @@ namespace Rx101
         private const float temperatureThreshhold = 23.0f;
         public static void FilterEventFlows()
         {
-            Console.WriteLine("Simple Event comparison");
+            Console.WriteLine("Filter Event Flows");
             // Setup
             var sampleData = new List<float> {12.5f, 43.2f, 22.3f, 21, 24, 27.8f, 21.3f, 33.2f};
             // Event
@@ -20,10 +20,11 @@ namespace Rx101
 
             // Observable
             var observableSample = new ObservableSample();
-            var subscription = observableSample
-                .MeasurementChanged
-                .Where(update => update.CurrentMeasurement > temperatureThreshhold)
-                .Subscribe(HandleTemperatureUpdate);
+            var subscription =
+                observableSample.MeasurementChanged
+                    .Where(update => update.CurrentMeasurement > temperatureThreshhold)
+                    .Subscribe(HandleTemperatureUpdate);
+            
             
             // Send measurements
             foreach (var dataPoint in sampleData)
@@ -33,7 +34,7 @@ namespace Rx101
             }
             
             // Clean Up
-            // subscription.Dispose();
+            subscription.Dispose();
             eventSample.MeasurementChanged -= OnEventSampleOnMeasurementChanged;
         }
 

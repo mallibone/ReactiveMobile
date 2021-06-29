@@ -10,17 +10,15 @@ namespace Rx101
     {
         public static void SimulateAsyncCalls()
         {
+            Console.WriteLine("Sim async calls");
             // Setup
             var httpCallSim = HttpCallSim();
             
             // Execution
-            var subscription = httpCallSim
-                .Select(x => x().ToObservable())
+            httpCallSim
+                .Select(httpCall => httpCall().ToObservable())
                 .Switch()
                 .Subscribe(value => Console.WriteLine($"Value: {value}"));
-            
-            // Clean Up
-            subscription.Dispose();
         }
 
         private static IObservable<Func<Task<float>>> HttpCallSim()

@@ -8,14 +8,14 @@ namespace Rx101
 {
     public class Demo05 : IDisposable
     {
-        private readonly CompositeDisposable _compositeDisposable;
+        private readonly CompositeDisposable _compositeDisposable = new();
 
         public Demo05(TimeSpan interval = default, IScheduler scheduler = null)
         {
+            Console.WriteLine("Timer");
             // Setup
             var timerScheduler = scheduler ?? Scheduler.Default;
             var timerInterval = interval == default ? TimeSpan.FromSeconds(1) : interval;
-            _compositeDisposable = new CompositeDisposable();
             
             var observer = new ObservableSample();
             var random = new Random(43);
