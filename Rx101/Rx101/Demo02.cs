@@ -32,7 +32,7 @@ namespace Rx101
                 observableSample.NewMeasurementReading(dataPoint);
             }
             
-            // Cleanup
+            // Clean Up
             // subscription.Dispose();
             eventSample.MeasurementChanged -= OnEventSampleOnMeasurementChanged;
         }

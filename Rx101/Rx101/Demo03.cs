@@ -19,7 +19,7 @@ namespace Rx101
             var humidityObserver = new ObservableSample();
             
             // Register Observer
-            temperatureObserver
+            var subscription = temperatureObserver
                 .MeasurementChanged
                 .CombineLatest(humidityObserver.MeasurementChanged)
                 .Subscribe(measurementUpdate =>
@@ -37,6 +37,9 @@ namespace Rx101
                 temperatureObserver.NewMeasurementReading(sampleTemperatrues[i]);
                 if (i % 2 == 0) humidityObserver.NewMeasurementReading(sampleHumidity[i / 2]);
             }
+            
+            // Clean Up
+            subscription.Dispose();
         }
     }
 }
