@@ -10,7 +10,7 @@ namespace ReactiveWeather.Services
     public class WeatherService
     {
         private readonly HttpClient _httpClient;
-        private const string BackendUrl = "https://dwxweatherforecast.azurewebsites.net/api/weatherforecast/forpostalcode/{0}";
+        private const string BackendUrl = "https://updateconf.azurewebsites.net/api/weatherforecast/forpostalcode/{0}";
 
         public WeatherService()
         {
