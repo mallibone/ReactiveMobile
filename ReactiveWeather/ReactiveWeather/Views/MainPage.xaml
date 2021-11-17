@@ -15,9 +15,9 @@
         TabIndicatorColor="Blue">
 
         <xct:TabViewItem
-            Text="Time"
+            Text="Search"
             FontSize="12">
-            <views:TimeView />
+            <views:LocationSearchView />
         </xct:TabViewItem>
         <xct:TabViewItem
             Text="Errors"
@@ -25,9 +25,9 @@
             <views:ErrorHandlingView />
         </xct:TabViewItem>
         <xct:TabViewItem
-            Text="Search"
+            Text="Time"
             FontSize="12">
-            <views:LocationSearchView />
+            <views:TimeView />
         </xct:TabViewItem>
     </xct:TabView>
 

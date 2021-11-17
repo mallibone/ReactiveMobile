@@ -13,6 +13,8 @@ namespace ReactiveWeather.ViewModels
         {
             ExecuteReset = ReactiveCommand.CreateFromObservable<Unit, string>(_ => Observable.Return(String.Empty));
             ExecuteErrorRequest = ReactiveCommand.CreateFromObservable(ErrorRequest);
+            
+            // Error handling
             ExecuteErrorRequest
                 .ThrownExceptions
                 .Select(ex => ex.ToString())

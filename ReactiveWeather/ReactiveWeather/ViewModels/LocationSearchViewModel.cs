@@ -12,27 +12,27 @@ namespace ReactiveWeather.ViewModels
 {
     public class LocationSearchViewModel : ReactiveObject
     {
-        private readonly WeatherService _weatherService;
-        private readonly LocalityService _locatityService;
+        private readonly LocalityService _localityService;
 
         public LocationSearchViewModel()
         {
-            _weatherService = new WeatherService();
-            _locatityService = new LocalityService();
+            _localityService = new LocalityService();
+            // The Commands
             ExecuteSearch =
-                ReactiveCommand.CreateFromObservable<string, IEnumerable<LocationViewItem>>(searchEntry => Search(searchEntry));
+                ReactiveCommand.CreateFromObservable<string, IEnumerable<LocationViewItem>>(searchEntry =>
+                    Search(searchEntry));
             ExecuteSearch.ThrownExceptions.Subscribe(ex => HandleException(ex));
 
-            this.WhenAnyValue(vm => vm.SearchEntry)
-                .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
-                .Select(query => query?.Trim())
-                .Where(query => query != null)
-                .DistinctUntilChanged()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Select(query => ExecuteSearch.Execute(query))
-                .Switch()
-                .Subscribe();
+            // The Search
+            // this.WhenAnyValue(vm => vm.SearchEntry)
+            //     .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
+            //     .Select(query => query?.Trim())
+            //     .Where(query => query != null)
+            //     .DistinctUntilChanged()
+            //     .ObserveOn(RxApp.MainThreadScheduler)
+            //     .InvokeCommand(ExecuteSearch);
 
+            // The Navigation
             this.WhenAnyValue(vm => vm.SelectedLocation)
                 .Where(sl => sl != null)
                 .Do(_ => SelectedLocation = null)
@@ -43,7 +43,7 @@ namespace ReactiveWeather.ViewModels
         {
             IsBusy = true;
             return
-                    _locatityService.SearchLocalities(searchEntry)
+                    _localityService.SearchLocalities(searchEntry)
                     .Where(localities => localities != null)
                     .Select(localities =>
                         localities.Select(l => new LocationViewItem {City = l.City, Postalcode = l.Postalcode})
@@ -53,29 +53,17 @@ namespace ReactiveWeather.ViewModels
                     .Do(_ => IsBusy = false);
         }
 
+        public Func<LocationViewItem, Task> NavigateToForecast { get; set; } = _ => Task.CompletedTask;
         [Reactive] public bool IsBusy { get; set; }
-
-        // private int _searchEntry;
-        // public int SearchEntry
-        // {
-        //     get => _searchEntry; 
-        //     set => this.RaiseAndSetIfChanged(ref _searchEntry, value);
-        // }
-
-        // identical to the written out above - generated at compile time
         [Reactive] public string SearchEntry { get; set; }
-        public Func<LocationViewItem, Task> NavigateToForecast { get; set; } = location => Task.CompletedTask;
-
-        // public ICommand ExecuteSearch { get; }
-        public ReactiveCommand<string,IEnumerable<LocationViewItem>> ExecuteSearch { get; }
-
         [Reactive] public IEnumerable<LocationViewItem> Locations { get; set; }
-
         [Reactive] public LocationViewItem SelectedLocation { get; set; }
+        public ReactiveCommand<string,IEnumerable<LocationViewItem>> ExecuteSearch { get; }
 
         private void HandleException(Exception exception)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(exception);
+            // todo: add error handling and logging
         }
     }
 }

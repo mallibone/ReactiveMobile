@@ -21,7 +21,7 @@
                 </StackLayout>
             </Frame>
             <StackLayout Grid.Row="1">
-                <Button Text="Error Text" 
+                <Button Text="Make something go boom!" 
                         Command="{Binding ExecuteErrorRequest}"/>
             </StackLayout>
         </Grid>

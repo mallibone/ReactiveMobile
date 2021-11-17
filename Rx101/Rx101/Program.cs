@@ -6,11 +6,11 @@ namespace Rx101
     {
         static void Main(string[] _)
         {
-            Demo01.SimpleComparison();
+            // Demo01.SimpleComparison();
             // Demo02.FilterEventFlows();
             // Demo03.MergeFlows();
             // Demo04.SimulateAsyncCalls();
-            // Demo05();
+            Demo05();
             Console.ReadLine();
         }
 

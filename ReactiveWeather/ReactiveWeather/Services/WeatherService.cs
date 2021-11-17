@@ -17,7 +17,7 @@ namespace ReactiveWeather.Services
             _httpClient = new HttpClient();
         }
 
-        public IObservable<WeatherForecast> GetWeatherForecast(int postalCode)
+        private IObservable<WeatherForecast> GetWeatherForecast(int postalCode)
         {
             var url = string.Format(BackendUrl, postalCode);
             return 
@@ -27,11 +27,12 @@ namespace ReactiveWeather.Services
         
         public IObservable<WeatherForecast> GetWeatherForecastCache(int postalCode)
         {
-            return 
-                BlobCache.UserAccount.GetOrFetchObject(
-                    $"forecast{postalCode}", 
-                    () => GetWeatherForecast(postalCode),
-                DateTimeOffset.Now.AddSeconds(5));
+            return
+                BlobCache.UserAccount.GetAndFetchLatest($"forecast{postalCode}", () => GetWeatherForecast(postalCode));
+            // BlobCache.UserAccount.GetOrFetchObject(
+            //     $"forecast{postalCode}", 
+            //     () => GetWeatherForecast(postalCode),
+            // DateTimeOffset.Now.AddSeconds(5));
         }
     }
 }

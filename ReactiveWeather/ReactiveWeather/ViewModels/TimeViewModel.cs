@@ -10,6 +10,7 @@ namespace ReactiveWeather.ViewModels
         public TimeViewModel()
         {
             CurrentTime = DateTime.Now.ToString("T");
+            
             Observable.Interval(TimeSpan.FromSeconds(1), RxApp.MainThreadScheduler)
                 .Select(_ => DateTime.Now.ToString("T"))
                 .ToPropertyEx(this, vm => vm.CurrentTime);

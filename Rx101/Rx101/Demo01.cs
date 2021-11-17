@@ -16,16 +16,15 @@ namespace Rx101
         private static void RunObservableSample()
         {
             var observableSample = new ObservableSample();
-
-            var measurmentChangedSubscription =
-                observableSample.MeasurementChanged
-                    .Subscribe(
-                    update => Console.WriteLine($"Temperature update {update.CurrentMeasurement}"),
-                    error => Console.WriteLine(error),
-                    () => Console.WriteLine("Completed"));
+            
+            var measurementSubscription =
+                observableSample.MeasurementChanged.Subscribe(
+                    update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"),
+                    exception => Console.WriteLine($"Hoppla: {exception}"),
+                    () => Console.WriteLine("All done."));
             
             observableSample.NewMeasurementReading(24.0f);
-            measurmentChangedSubscription.Dispose();
+            measurementSubscription.Dispose();
         }
 
         private static void RunEventSample()
