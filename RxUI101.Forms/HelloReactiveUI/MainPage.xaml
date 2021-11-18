@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="HelloReactiveUI.MainPage"
+             Title="The Counter">
+
+    <StackLayout VerticalOptions="Center" 
+                 HorizontalOptions="Center" 
+                 Padding="32">
+        <Label Text="{Binding CounterMessage}" />
+        <Button Text="{Binding ButtonText}" 
+                Command="{Binding ExecuteIncrement}" />
+        <!-- <Button Text="Delayed Increment" -->
+        <!--         Command="{Binding ExecuteAsyncIncrement}" /> -->
+        <!-- <StackLayout Orientation="Horizontal"> -->
+        <!--     <Label Text="Delay in seconds: "/> -->
+        <!--     <Label Text="{Binding DelayInSeconds}"/> -->
+        <!-- </StackLayout> -->
+        <!-- <Slider Maximum="5.0"  -->
+        <!--         Minimum="1.0"  -->
+        <!--         Value="{Binding DelayInSeconds}" /> -->
+    </StackLayout>
+
+</ContentPage>
