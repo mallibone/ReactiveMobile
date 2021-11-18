@@ -23,7 +23,7 @@ namespace Rx101
             var subscription =
                 temperatureObserver
                     .MeasurementChanged
-                    .Merge(humidityObserver.MeasurementChanged)
+                    .CombineLatest(humidityObserver.MeasurementChanged)
                     .Subscribe(measurementUpdate =>
                     {
                         var temperatureUpdate = measurementUpdate.First;

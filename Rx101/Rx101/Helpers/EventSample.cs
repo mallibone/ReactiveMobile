@@ -11,7 +11,7 @@ namespace Rx101.Helpers
         {
             var measurementUpdate = new MeasurementUpdate(measurement);
             var measurementChanged = MeasurementChanged;
-            if (measurementChanged == null) return;
+            if (measurementChanged is null) return;
             measurementChanged(this, measurementUpdate);
         }
     }

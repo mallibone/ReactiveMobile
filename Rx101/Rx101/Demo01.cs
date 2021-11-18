@@ -13,28 +13,35 @@ namespace Rx101
             RunObservableSample();
         }
 
-        private static void RunObservableSample()
-        {
-            var observableSample = new ObservableSample();
-            
-            var measurementSubscription =
-                observableSample.MeasurementChanged.Subscribe(
-                    update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"),
-                    exception => Console.WriteLine($"Hoppla: {exception}"),
-                    () => Console.WriteLine("All done."));
-            
-            observableSample.NewMeasurementReading(24.0f);
-            measurementSubscription.Dispose();
-        }
-
         private static void RunEventSample()
         {
-            var eventSample = new EventSample();
+            Console.WriteLine("Event");
+            Console.WriteLine("****************");
+            var eventSample = new EventStreamSample();
             eventSample.MeasurementChanged += EventSampleOnMeasurementChanged;
-            eventSample.NewMeasruementReading(22.0f);
+            eventSample.GenerateMeasurementReadings();
             eventSample.MeasurementChanged -= EventSampleOnMeasurementChanged;
         }
         private static void EventSampleOnMeasurementChanged(object sender, MeasurementUpdate update) =>
             Console.WriteLine($"Temperature update {update.CurrentMeasurement}");
+
+        private static void RunObservableSample()
+        {
+            // var observableSample = new ObservableSample();
+            var observableSample = new ObservableStreamSample(true);
+            // var observableSample = new ObservableStreamSample(true);
+            
+            Console.WriteLine("Observable");
+            Console.WriteLine("****************");
+            var measurementSubscription =
+                observableSample.MeasurementChanged.Subscribe(
+                    update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"),
+                    exception => Console.WriteLine($"Hoppla: {exception.Message}"),
+                    () => Console.WriteLine("All done."));
+            
+            // observableSample.NewMeasurementReading(24.0f);
+            // observableSample.NewMeasurementReading(13.37f, true);
+            measurementSubscription.Dispose();
+        }
     }
 }

@@ -11,7 +11,10 @@ namespace Rx101.Helpers
         // Observable
         public IObservable<MeasurementUpdate> MeasurementChanged => _measurementUpdateSubject;
 
-        public void NewMeasurementReading(float measurement) =>
+        public void NewMeasurementReading(float measurement, bool goBoom = false)
+        {
+            if(goBoom) _measurementUpdateSubject.OnError(new Exception("We went boom... 💥"));
             _measurementUpdateSubject.OnNext(new MeasurementUpdate(measurement));
+        }
     }
 }
