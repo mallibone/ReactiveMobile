@@ -9,12 +9,21 @@
                               Title="{Binding Location}"
                               x:Class="ReactiveWeather.Views.ForecastPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Date, StringFormat='Last Update: {0:G}'}" />
-            <Label Text="{Binding Temperature, StringFormat='Temperature: {0:F} °C'}" />
-            <Label Text="{Binding Humidity, StringFormat='Humitidy: {0}%'}" />
-            <Label Text="{Binding Windspeed, StringFormat='Windspeed: {0:F} kph'}" />
-            <Button Text="Update" Command="{Binding ExecuteUpdate}" />
-        </StackLayout>
+        <Grid>
+            <StackLayout Margin="16">
+                <Label Text="{Binding Date, StringFormat='Last Update: {0:G}'}" />
+                <Label Text="{Binding Temperature, StringFormat='Temperature: {0:F} °C'}" />
+                <Label Text="{Binding Humidity, StringFormat='Humitidy: {0}%'}" />
+                <Label Text="{Binding Windspeed, StringFormat='Windspeed: {0:F} kph'}" />
+                <Button Text="Update" Command="{Binding ExecuteUpdate}" />
+            </StackLayout>
+            <Grid IsVisible="{Binding IsBusy}" 
+                  BackgroundColor="#AA7D8E0" >
+                <ActivityIndicator IsEnabled="{Binding IsBusy}" 
+                                   IsRunning="{Binding IsBusy}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </rx:ReactiveContentPage>

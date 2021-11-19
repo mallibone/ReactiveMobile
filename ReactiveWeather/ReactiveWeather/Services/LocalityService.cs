@@ -25,8 +25,8 @@ namespace ReactiveWeather.Services
         {
             if (_localities.Any() == false) _localities = await LoadPostalcodes();
             
-            // Adds a random break on every odd search request
-            await Task.Delay(TimeSpan.FromSeconds(0.5), tcl);
+            // Adds a random break on every search request
+            await Task.Delay(TimeSpan.FromSeconds(1), tcl);
 
             return string.IsNullOrEmpty(searchQuery)
                 ? new List<Locality>()
