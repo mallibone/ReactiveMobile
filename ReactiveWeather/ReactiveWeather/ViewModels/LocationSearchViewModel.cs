@@ -25,7 +25,7 @@ namespace ReactiveWeather.ViewModels
 
             // The Search
             // this.WhenAnyValue(vm => vm.SearchEntry)
-            //     .Throttle(TimeSpan.FromMilliseconds(500), RxApp.TaskpoolScheduler)
+            //     .Throttle(TimeSpan.FromMilliseconds(100), RxApp.TaskpoolScheduler)
             //     .Select(query => query?.Trim())
             //     .Where(query => query != null)
             //     .DistinctUntilChanged()
@@ -33,10 +33,10 @@ namespace ReactiveWeather.ViewModels
             //     .InvokeCommand(ExecuteSearch);
 
             // The Navigation
-            this.WhenAnyValue(vm => vm.SelectedLocation)
-                .Where(sl => sl != null)
-                .Do(_ => SelectedLocation = null)
-                .Subscribe(sl => NavigateToForecast(sl));
+            // this.WhenAnyValue(vm => vm.SelectedLocation)
+            //     .Where(sl => sl != null)
+            //     .Do(_ => SelectedLocation = null)
+            //     .Subscribe(sl => NavigateToForecast(sl));
         }
 
         private IObservable<IEnumerable<LocationViewItem>> Search(string searchEntry)
