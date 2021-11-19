@@ -28,11 +28,18 @@ namespace ReactiveWeather.Services
         public IObservable<WeatherForecast> GetWeatherForecastCache(int postalCode)
         {
             return
-                BlobCache.UserAccount.GetAndFetchLatest($"forecast{postalCode}", () => GetWeatherForecast(postalCode));
-            // BlobCache.UserAccount.GetOrFetchObject(
-            //     $"forecast{postalCode}", 
-            //     () => GetWeatherForecast(postalCode),
-            // DateTimeOffset.Now.AddSeconds(5));
+                // No Cache
+                GetWeatherForecast(postalCode);
+            
+                // Expiration Cache (the classic)
+                // BlobCache.UserAccount.GetOrFetchObject(
+                //     $"forecast{postalCode}",
+                //     () => GetWeatherForecast(postalCode),
+                //     DateTimeOffset.Now.AddSeconds(5));
+                
+                // Get and fetch latest
+                // BlobCache.UserAccount.GetAndFetchLatest($"forecast{postalCode}",
+                //     () => GetWeatherForecast(postalCode));
         }
     }
 }

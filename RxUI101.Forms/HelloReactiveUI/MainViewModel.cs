@@ -11,14 +11,13 @@ namespace HelloReactiveUI
 {
     public class MainViewModel : ReactiveObject
     {
-        private int _delayInSeconds = 1;
-
         public MainViewModel()
         {
-            ExecuteAsyncIncrement = ReactiveCommand.CreateFromTask(DelayedCount);
+            ExecuteAsyncIncrement = ReactiveCommand.CreateFromTask(TaskDelayedCount);
             // ExecuteAsyncIncrement = ReactiveCommand.CreateFromObservable(ObservableDelayedCount);
-            // ExecuteIncrement = ReactiveCommand.Create(() => Counter++, ExecuteAsyncIncrement.CanExecute);
+            
             ExecuteIncrement = ReactiveCommand.Create(() => Counter++);
+            // ExecuteIncrement = ReactiveCommand.Create(() => Counter++, ExecuteAsyncIncrement.CanExecute);
 
             this.WhenAnyValue(vm => vm.Counter)
                 .Do(counter =>
@@ -29,21 +28,23 @@ namespace HelloReactiveUI
                 .ToPropertyEx(this, vm => vm.CounterMessage);
         }
 
+        // Properties
         [Reactive] public string ButtonText { get; set; } = "Tap me!";
         [Reactive] public int Counter { get; set; }
 
+        private int _delayInSeconds = 1;
         public int DelayInSeconds
         {
             get => _delayInSeconds;
             set => this.RaiseAndSetIfChanged(ref _delayInSeconds, value);
         }
-        
         public string CounterMessage { [ObservableAsProperty] get; }
 
+        // Commands
         public ICommand ExecuteIncrement { get; }
         public ReactiveCommand<Unit, Unit> ExecuteAsyncIncrement { get; }
 
-        private async Task DelayedCount()
+        private async Task TaskDelayedCount()
         {
             await Task.Delay(TimeSpan.FromSeconds(DelayInSeconds));
             Counter++;
