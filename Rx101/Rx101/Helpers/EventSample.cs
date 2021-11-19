@@ -10,6 +10,7 @@ namespace Rx101.Helpers
         public void NewMeasruementReading(float measurement)
         {
             var measurementUpdate = new MeasurementUpdate(measurement);
+
             var measurementChanged = MeasurementChanged;
             if (measurementChanged is null) return;
             measurementChanged(this, measurementUpdate);

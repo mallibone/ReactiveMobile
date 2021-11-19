@@ -28,15 +28,16 @@ namespace Rx101
         private static void RunObservableSample()
         {
             // var observableSample = new ObservableSample();
-            var observableSample = new ObservableStreamSample(true);
+            var observableSample = new ObservableStreamSample();
             // var observableSample = new ObservableStreamSample(true);
             
             Console.WriteLine("Observable");
             Console.WriteLine("****************");
             var measurementSubscription =
                 observableSample.MeasurementChanged.Subscribe(
+                    // update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"));
                     update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"),
-                    exception => Console.WriteLine($"Hoppla: {exception.Message}"),
+                    // exception => Console.WriteLine($"Hoppla: {exception.Message}"),
                     () => Console.WriteLine("All done."));
             
             // observableSample.NewMeasurementReading(24.0f);
