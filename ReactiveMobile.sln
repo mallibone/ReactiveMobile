@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{E332D61B-A6B9-45EB-83F7-701F9B0DAEE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{429D80E6-FFB5-4CFB-9C9B-5F6D85C6E266}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{BABF639D-EF05-456D-B754-73474CBC918D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactiveWeather", "MobileReactive\ReactiveWeather\ReactiveWeather.csproj", "{C1E33916-E09E-4523-944A-42CA67C552B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{2E5880A7-5CA9-4784-8BFC-34FF10F418E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rx101", "Rx101\Rx101\Rx101.csproj", "{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BABF639D-EF05-456D-B754-73474CBC918D} = {E332D61B-A6B9-45EB-83F7-701F9B0DAEE9}
+		{C1E33916-E09E-4523-944A-42CA67C552B9} = {429D80E6-FFB5-4CFB-9C9B-5F6D85C6E266}
+		{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8} = {2E5880A7-5CA9-4784-8BFC-34FF10F418E9}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BABF639D-EF05-456D-B754-73474CBC918D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABF639D-EF05-456D-B754-73474CBC918D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABF639D-EF05-456D-B754-73474CBC918D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABF639D-EF05-456D-B754-73474CBC918D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1E33916-E09E-4523-944A-42CA67C552B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E33916-E09E-4523-944A-42CA67C552B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E33916-E09E-4523-944A-42CA67C552B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E33916-E09E-4523-944A-42CA67C552B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA2E2875-6EA1-460A-9FD2-B554C2CE5EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
