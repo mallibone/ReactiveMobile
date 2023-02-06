@@ -6,9 +6,14 @@ namespace Rx101.Helpers;
 
 public class EventVsObservableSample
 {
+    #region Rx
     private readonly Subject<MeasurementUpdate> _measurementSubject = new();
-    public event EventHandler<MeasurementUpdate> MeasurementChanged;
     public IObservable<MeasurementUpdate> MeasurementChangedObservable => _measurementSubject;
+    #endregion
+
+    #region Event
+    public event EventHandler<MeasurementUpdate> MeasurementChanged;
+    #endregion
 
     public void NewMeasruementReading(float measurement)
     {

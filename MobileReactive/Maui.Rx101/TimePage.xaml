@@ -1,0 +1,16 @@
+﻿<?xml version = "1.0" encoding = "utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Maui.Rx101.ViewModels"
+             x:DataType="viewModels:TimerViewModel"
+             x:Class="Maui.Rx101.TimePage">
+    <ContentPage.BindingContext>
+        <viewModels:TimerViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Label Text="{Binding Time}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="48" />
+	<!--FontFamily="Digital7" />-->
+        
+    </ContentPage.Content>
+</ContentPage>

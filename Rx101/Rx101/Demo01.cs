@@ -18,6 +18,7 @@ public static class Demo01
     {
         Console.WriteLine("Event");
         Console.WriteLine("****************");
+
         var eventSample = new EventStreamSample();
         eventSample.MeasurementChanged += EventSampleOnMeasurementChanged;
         eventSample.GenerateMeasurementReadings();
@@ -30,16 +31,19 @@ public static class Demo01
     #region Observable
     private static void RunObservableSample()
     {
-        var observableSample = new ObservableStreamSample();
+        var observableSample = new ObservableStreamSample(true);
             
         Console.WriteLine("Observable");
         Console.WriteLine("****************");
+
+        // +=
         var measurementSubscription =
             observableSample.MeasurementChanged.Subscribe(
                 update => Console.WriteLine($"Temperature update: {update.CurrentMeasurement}"),
-                // exception => Console.WriteLine($"Ooops: {exception.Message}"),
+                exception => Console.WriteLine($"Ooops: {exception.Message}"),
                 () => Console.WriteLine("All done."));
 
+        // -=
         measurementSubscription.Dispose();
     }
     #endregion
