@@ -1,41 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
+             x:DataType="vm:LocationSearchViewModel"
              x:Class="ReactiveWeather.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
+        <Grid RowDefinitions="Auto,*"
+              Margin="32,32">
+            <!-- Search Area -->
+            <Grid ColumnDefinitions="*,Auto" BackgroundColor="White">
+                <SearchBar x:Name="searchBar"
+                           BackgroundColor="White"
+                           Placeholder="Enter Postalcode or City"
+                           Text="{Binding SearchEntry}"
+                           SearchCommand="{Binding ExecuteSearch}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                <ActivityIndicator IsEnabled="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   BackgroundColor="White"
+                                   Grid.Column="1"/>
+            </Grid>
+            <!-- List of Locations -->
+            <CollectionView ItemsSource="{Binding Locations}"
+                            SelectedItem="{Binding SelectedLocation}"
+                            SelectionMode="Single"
+                            Grid.Row="1"/>
+        </Grid>
     </ScrollView>
 
 </ContentPage>

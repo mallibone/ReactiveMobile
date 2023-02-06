@@ -24,19 +24,24 @@ namespace ReactiveWeather.ViewModels
             ExecuteSearch.ThrownExceptions.Subscribe(ex => HandleException(ex));
 
             // The Search
+            #region search
             // this.WhenAnyValue(vm => vm.SearchEntry)
-            //     .Throttle(TimeSpan.FromMilliseconds(100), RxApp.TaskpoolScheduler)
+            //     // .ObserveOn(RxApp.TaskpoolScheduler) // for heavy lifting change to background thread
+            //     .Throttle(TimeSpan.FromMilliseconds(300))
             //     .Select(query => query?.Trim())
             //     .Where(query => query != null)
             //     .DistinctUntilChanged()
-            //     .ObserveOn(RxApp.MainThreadScheduler)
+            //     .ObserveOn(RxApp.MainThreadScheduler) // change to UI thread
             //     .InvokeCommand(ExecuteSearch);
+            #endregion
 
             // The Navigation
+            #region navigation
             // this.WhenAnyValue(vm => vm.SelectedLocation)
             //     .Where(sl => sl != null)
             //     .Do(_ => SelectedLocation = null)
             //     .Subscribe(sl => NavigateToForecast(sl));
+            #endregion
         }
 
         private IObservable<IEnumerable<LocationViewItem>> Search(string searchEntry)
@@ -55,9 +60,9 @@ namespace ReactiveWeather.ViewModels
 
         public Func<LocationViewItem, Task> NavigateToForecast { get; set; } = _ => Task.CompletedTask;
         [Reactive] public bool IsBusy { get; set; }
-        [Reactive] public string SearchEntry { get; set; }
-        [Reactive] public IEnumerable<LocationViewItem> Locations { get; set; }
-        [Reactive] public LocationViewItem SelectedLocation { get; set; }
+        [Reactive] public string SearchEntry { get; set; } = string.Empty;
+        [Reactive] public IEnumerable<LocationViewItem> Locations { get; set; } = Enumerable.Empty<LocationViewItem>();
+        [Reactive] public LocationViewItem SelectedLocation { get; set; } = null!;
         public ReactiveCommand<string,IEnumerable<LocationViewItem>> ExecuteSearch { get; }
 
         private void HandleException(Exception exception)

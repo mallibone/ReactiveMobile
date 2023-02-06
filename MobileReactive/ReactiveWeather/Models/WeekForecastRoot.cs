@@ -1,8 +1,7 @@
-namespace ReactiveWeather.Models
+namespace ReactiveWeather.Models;
+
+public class WeekForecastRoot
 {
-    public class WeekForecastRoot
-    {
-        public SevenDayForecast Data { get; set; }
-        public Config Config { get; set; }
-    }
+    public SevenDayForecast Data { get; set; } = new ();
+    public Config Config { get; set; } = new();
 }

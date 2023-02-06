@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<rx:ReactiveContentPage x:TypeArguments="vm:ForecastViewModel" 
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:rx="clr-namespace:ReactiveUI.Maui;assembly=ReactiveUI.Maui"
+                          xmlns:vm="clr-namespace:ReactiveWeather.ViewModels;assembly=ReactiveWeather"
+                          x:DataType="vm:ForecastViewModel"
+                          x:Class="ReactiveWeather.Views.ForecastPage">
+    <ContentPage.Content>
+        <Grid>
+            <VerticalStackLayout Margin="16" Spacing="8">
+                <Label Text="{Binding Date, StringFormat='Last Update: {0:G}'}" FontSize="18" />
+                <Label Text="{Binding Temperature, StringFormat='Temperature: {0:F} °C'}" FontSize="18" />
+                <Label Text="{Binding Humidity, StringFormat='Humitidy: {0}%'}" FontSize="18" />
+                <Label Text="{Binding Windspeed, StringFormat='Windspeed: {0:F} kph'}" FontSize="18" />
+                <Button Text="Update" Command="{Binding ExecuteUpdate}" />
+            </VerticalStackLayout>
+            <Grid IsVisible="{Binding IsBusy}" 
+                  BackgroundColor="#AAFFFFFF" >
+                <ActivityIndicator IsEnabled="{Binding IsBusy}" 
+                                   IsRunning="{Binding IsBusy}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   BackgroundColor="Transparent"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</rx:ReactiveContentPage>

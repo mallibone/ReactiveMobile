@@ -38,10 +38,10 @@ namespace ReactiveWeather.Services
         private async Task<List<Locality>> LoadPostalcodes()
         {
             Assembly assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("ReactiveWeather.Assets.SwissPostalcodes.json");
+            Stream? stream = assembly.GetManifestResourceStream("ReactiveWeather.Assets.SwissPostalcodes.json");
             using StreamReader reader = new StreamReader(stream!);
             string postalCodeJson = await reader.ReadToEndAsync();
-            return JsonSerializer.Deserialize<List<Locality>>(postalCodeJson);
+            return JsonSerializer.Deserialize<List<Locality>>(postalCodeJson)!;
         }
     }
 }

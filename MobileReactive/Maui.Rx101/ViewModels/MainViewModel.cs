@@ -8,12 +8,10 @@ namespace Maui.Rx101.ViewModels;
 
 public class MainViewModel : ReactiveObject, IDisposable
 {
-    private readonly CompositeDisposable _disposables;
+    private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
     public MainViewModel()
     {
-        _disposables = new CompositeDisposable();
-
         ExecuteCount = ReactiveCommand.Create(CountUp);
 
         this.WhenAnyValue(vm => vm.StepCount)
@@ -22,10 +20,10 @@ public class MainViewModel : ReactiveObject, IDisposable
             .DisposeWith(_disposables);
     }
 
-    [ObservableAsProperty] public string CurrentStepCount { get; }
-    [Reactive] public int Count { get; set; }
+    [ObservableAsProperty] public string CurrentStepCount { get; } = string.Empty;
+    [Reactive] public int Count { get; set; } = 0;
 
-    [Reactive] public int StepCount { get; set; }
+    [Reactive] public int StepCount { get; set; } = 1;
 
     [Reactive] public string CounterText { get; set; } = "Click me!";
 

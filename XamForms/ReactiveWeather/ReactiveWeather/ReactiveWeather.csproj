@@ -27,7 +27,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="..\..\WebApplication\Models\WeatherForecast.cs">
+    <Compile Include="..\..\..\WebApplication\Models\WeatherForecast.cs">
       <Link>Models\WeatherForecast.cs</Link>
     </Compile>
   </ItemGroup>
