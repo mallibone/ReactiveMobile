@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Maui.Rx101.ViewModels"
+             x:DataType="viewModels:MainViewModel"
+             x:Class="Maui.Rx101.MainPage">
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Hello, Rx World!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="{Binding CurrentStepCount}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="The current step count"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
+            <Slider Minimum="0" Maximum="10" Value="{Binding StepCount}"></Slider>
+
+            <Button
+                Text="{Binding CounterText}"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Command="{Binding ExecuteCount}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

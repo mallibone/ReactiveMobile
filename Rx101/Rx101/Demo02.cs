@@ -15,7 +15,7 @@ namespace Rx101
             // Setup
             var sampleData = new List<float> {12.5f, 43.2f, 22.3f, 21, 24, 27.8f, 21.3f, 33.2f};
             // Event
-            var eventSample = new EventSample();
+            var eventSample = new EventVsObservableSample();
             eventSample.MeasurementChanged += OnEventSampleOnMeasurementChanged;
 
             // Observable

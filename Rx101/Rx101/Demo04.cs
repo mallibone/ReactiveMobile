@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
@@ -13,12 +14,16 @@ namespace Rx101
             Console.WriteLine("Sim async calls");
             // Setup
             var httpCallSim = HttpCallSim();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             
             // Execution
             httpCallSim
-                .Select(httpCall => httpCall().ToObservable())
-                .Switch()
-                .Subscribe(value => Console.WriteLine($"Value: {value}"));
+                .SelectMany(httpCall => httpCall().ToObservable())
+                // .Select(httpCall => httpCall().ToObservable())
+                // .Concat() // keep the order
+                // .Switch() // only take fastest result
+                .Subscribe(value => Console.WriteLine($"Value: {value} - {stopwatch.ElapsedMilliseconds} ms"));
         }
 
         private static IObservable<Func<Task<float>>> HttpCallSim()

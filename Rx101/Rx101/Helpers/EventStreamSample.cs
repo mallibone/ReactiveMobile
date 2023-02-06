@@ -36,9 +36,10 @@ namespace Rx101.Helpers
             Enumerable.Range(0, 5)
             .Select(_ => new MeasurementUpdate(_random.Next(190, 283) / 10f))
             .ToObservable();
-            // .Select(i =>
-            //     i == 4 && _goBoom
-            //         ? throw new Exception("We went boom... 💥")
-            //         : new MeasurementUpdate(_random.Next(190, 283) / 10f))
+
+        // .Select(i =>
+        //     i == 4 && _goBoom
+        //         ? throw new Exception("We went boom... 💥")
+        //         : new MeasurementUpdate(_random.Next(190, 283) / 10f))
     }
 }
