@@ -32,17 +32,17 @@ public class WeatherService
     public IObservable<WeatherForecast> GetWeatherForecastCache(int postalCode)
     {
         return
-         // No Cache
-         GetWeatherForecast(postalCode);
+        // No Cache
+        GetWeatherForecast(postalCode);
 
-         // Expiration Cache (the classic)
-         //BlobCache.InMemory.GetOrFetchObject(
-         //    $"forecast{postalCode}",
-         //    () => GetWeatherForecast(postalCode),
-         //    DateTimeOffset.Now.AddSeconds(5))!;
+        // Expiration Cache (the classic)
+        //BlobCache.InMemory.GetOrFetchObject(
+        //    $"forecast{postalCode}",
+        //    () => GetWeatherForecast(postalCode),
+        //    DateTimeOffset.Now.AddSeconds(5))!;
 
-         // Get and fetch latest
-         //BlobCache.InMemory.GetAndFetchLatest($"forecast{postalCode}",
-         //    () => GetWeatherForecast(postalCode))!;
+        // Get and fetch latest
+        //BlobCache.LocalMachine.GetAndFetchLatest<WeatherForecast>($"forecast{postalCode}",
+        //    () => GetWeatherForecast(postalCode))!;
     }
 }

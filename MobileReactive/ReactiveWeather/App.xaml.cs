@@ -8,5 +8,12 @@ public partial class App : Application
 
 		MainPage = new AppShell();
 	}
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        
+        Akavache.Registrations.Start(AppInfo.Name);
+    }
 }
 
