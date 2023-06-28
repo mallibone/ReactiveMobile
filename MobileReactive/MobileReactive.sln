@@ -20,7 +20,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2A2640F1-E8ED-4B1B-A44A-AE3A4BE8E641}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{2A2640F1-E8ED-4B1B-A44A-AE3A4BE8E641}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{2A2640F1-E8ED-4B1B-A44A-AE3A4BE8E641}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{2A2640F1-E8ED-4B1B-A44A-AE3A4BE8E641}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{2A2640F1-E8ED-4B1B-A44A-AE3A4BE8E641}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -35,6 +34,7 @@ Global
 		{A0C89D49-A880-45C7-9BDC-B738742CF656}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{A0C89D49-A880-45C7-9BDC-B738742CF656}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{A0C89D49-A880-45C7-9BDC-B738742CF656}.Release|iPhone.Build.0 = Release|Any CPU
+		{A0C89D49-A880-45C7-9BDC-B738742CF656}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
