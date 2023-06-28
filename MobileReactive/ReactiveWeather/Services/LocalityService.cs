@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using ReactiveUI;
 using ReactiveWeather.Models;
 
@@ -26,7 +20,7 @@ public class LocalityService
         if (_localities.Any() == false) _localities = await LoadPostalcodes();
         
         // Adds a random break on every search request
-        await Task.Delay(TimeSpan.FromSeconds(1), tcl);
+        await Task.Delay(TimeSpan.FromMilliseconds(1000), tcl);
 
         return string.IsNullOrEmpty(searchQuery)
             ? new List<Locality>()
